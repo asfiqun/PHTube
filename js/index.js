@@ -26,6 +26,7 @@ const handleCategory= async() =>{
         cardContainer.classList.remove("grid");
         cardContainer.classList.add("grid");
         data.data.forEach((video)=>{
+
             const div=document.createElement('div');
             const time= video.others.posted_date;
             const second=time%60;
@@ -33,8 +34,7 @@ const handleCategory= async() =>{
             const min= time1%60;
             const time2=(time1-min)/60;
             const hour= time2%60;
-            console.log(time+' '+hour+' '+min+' '+second); 
-
+    
             div.innerHTML=`
             <div class="card bg-base-100 h-78">
             <figure><img class="rounded-xl h-40 w-full relative" src=${video.thumbnail}/></figure>
@@ -71,6 +71,7 @@ const handleCategory= async() =>{
             `;
     }
     };
+
 
 handleCategory();
 handleLoadCategory(1000);
