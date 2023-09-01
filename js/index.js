@@ -25,7 +25,7 @@ const handleCategory = async () => {
         <button onclick="sortByView(selectedCategoryId)" class="bg-gray-300 rounded px-3 py-1 font-bold hover:text-red-600">Sort by View</button>
     </div>
     <div>
-        <button class="rounded px-3 py-1 bg-red-600 text-white text-sm hover:bg-black hover:text-red-600">Blog</button>
+        <button onclick="goToBlog()" class="rounded px-3 py-1 bg-red-600 text-white text-sm hover:bg-black hover:text-red-600">Blog</button>
     </div>
 </div>
     `;
@@ -51,10 +51,9 @@ const handleCategory = async () => {
             const div=document.createElement('div');
             const time= video.others.posted_date;
             const second=time%60;
-            const time1=(time-second)/60;
-            const min= time1%60;
-            const time2=(time1-min)/60;
-            const hour= time2%60;
+            const min= Math.floor((time % 3600) / 60);
+            const hour= Math.floor(time / 3600);
+            
     
             div.innerHTML=`
             <div class="card bg-base-100 h-78">
@@ -106,8 +105,8 @@ const handleCategory = async () => {
             const viewCount1 = parseFloat(video1.others.views.replace('k', '')) || 0;
             const viewCount2 = parseFloat(video2.others.views.replace('k', '')) || 0;
 
-            if (viewCount1 < viewCount2) return -1;
-            if (viewCount1 > viewCount2) return 1;
+            if (viewCount1 > viewCount2) return -1;
+            if (viewCount1 < viewCount2) return 1;
         });
         
         data.data.forEach((video)=>{
@@ -115,10 +114,8 @@ const handleCategory = async () => {
             const div=document.createElement('div');
             const time= video.others.posted_date;
             const second=time%60;
-            const time1=(time-second)/60;
-            const min= time1%60;
-            const time2=(time1-min)/60;
-            const hour= time2%60;
+            const min= Math.floor((time % 3600) / 60);
+            const hour= Math.floor(time / 3600);
     
             div.innerHTML=`
             <div class="card bg-base-100 h-78">
@@ -159,3 +156,6 @@ const handleCategory = async () => {
 
 handleCategory();
 handleLoadCategory(1000);
+function goToBlog() {
+    window.location.href = "blog.html";
+  }
